@@ -1,0 +1,5 @@
+.venv
+data/
+vectordb
+vectorstore
+.env

@@ -1,0 +1,11 @@
+fastapi
+uvicorn
+langchain
+chromadb
+pypdf
+python-dotenv
+tqdm
+ollama
+sentence-transformers
+pydantic 
+transformers
