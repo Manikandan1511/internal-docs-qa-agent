@@ -3,3 +3,4 @@ data/
 vectordb
 vectorstore
 .env
+node_modules/
