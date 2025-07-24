@@ -1,14 +1,26 @@
+// src/App.jsx
 import React from "react";
-import ChatWindow from "./components/ChatWindow";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import LoginPage from "@/components/LoginPage";
+import Dashboard from "@/components/Dashboard";
+import ChatPage from "@/components/ChatPage";
+import UploadPage from "@/components/UploadPage";   
+import DocsPage from "@/components/DocsPage";      
+import ProfilePage from "@/components/ProfilePage"; 
+
 
 function App() {
   return (
-    <div className="min-h-screen bg-gray-900 text-white flex items-center justify-center p-4">
-      <div className="w-full max-w-3xl">
-        <h1 className="text-3xl font-bold text-center mb-6">📄 Internal Docs Q&A Agent</h1>
-        <ChatWindow />
-      </div>
-    </div>
+    <Router>
+      <Routes>
+        <Route path="/" element={<LoginPage />} />
+        <Route path="/Dashboard" element={<Dashboard />} />
+        <Route path="/chat" element={<ChatPage />} />
+        <Route path="/upload" element={<UploadPage />} />   
+        <Route path="/docs" element={<DocsPage />} />       
+        <Route path="/profile" element={<ProfilePage />} /> 
+      </Routes>
+    </Router>
   );
 }
 
