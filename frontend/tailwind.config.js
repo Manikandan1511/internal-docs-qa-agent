@@ -53,7 +53,16 @@ module.exports = {
   				'4': 'hsl(var(--chart-4))',
   				'5': 'hsl(var(--chart-5))'
   			}
-  		}
+  		},
+		animation: {
+        "mouth-pulse": "mouthPulse 0.6s ease-in-out infinite",
+		},
+		keyframes: {
+			mouthPulse: {
+			"0%, 100%": { transform: "scaleY(1)" },
+			"50%": { transform: "scaleY(0.2)" },
+			},
+		},
   	}
   },
   plugins: [require("tailwindcss-animate")],

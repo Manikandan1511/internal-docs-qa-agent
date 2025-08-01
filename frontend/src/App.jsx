@@ -7,6 +7,8 @@ import ChatPage from "@/components/ChatPage";
 import UploadPage from "@/components/UploadPage";   
 import DocsPage from "@/components/DocsPage";      
 import ProfilePage from "@/components/ProfilePage"; 
+import RegisterPage from "@/components/RegisterPage";
+import AccountSetupPage from "@/components/Accountsetup"; // Assuming you have this component
 
 
 function App() {
@@ -19,6 +21,8 @@ function App() {
         <Route path="/upload" element={<UploadPage />} />   
         <Route path="/docs" element={<DocsPage />} />       
         <Route path="/profile" element={<ProfilePage />} /> 
+        <Route path="/register" element={<RegisterPage />} />
+        <Route path="/account-setup" element={<AccountSetupPage />} /> {/* New route for account setup */}
       </Routes>
     </Router>
   );

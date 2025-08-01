@@ -1,11 +1,13 @@
 # backend/app/api.py
 
 import os
-from fastapi import FastAPI, UploadFile, File, HTTPException
+from fastapi import FastAPI, UploadFile, File, HTTPException, Depends
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from fastapi.responses import JSONResponse
 from typing import List, Dict, Union
+from fastapi import Depends
+
 
 # Assuming these imports are correct based on your backend structure
 from backend.app.model import QARequest, QAResponse
@@ -118,3 +120,37 @@ async def get_user_profile():
         "role": "Administrator",
         "status": "Active"
     }
+
+
+from backend.chroma_db.database import SessionLocal
+from backend.chroma_db.models import User
+from backend.chroma_db.schemas import UserCreate, UserLogin
+from sqlalchemy.orm import Session
+
+# Dependency
+def get_db():
+    db = SessionLocal()
+    try:
+        yield db
+    finally:
+        db.close()
+
+@app.post("/register/")
+def register_user(user: UserCreate, db: Session = Depends(get_db)):
+    # Check if user exists
+    existing = db.query(User).filter(User.email == user.email).first()
+    if existing:
+        raise HTTPException(status_code=400, detail="User already exists")
+    
+    new_user = User(email=user.email, password=user.password)  # ❗️Store plain password only for demo. Hash it later.
+    db.add(new_user)
+    db.commit()
+    db.refresh(new_user)
+    return {"message": "User registered successfully"}
+
+@app.post("/login/")
+def login(user: UserLogin, db: Session = Depends(get_db)):
+    db_user = db.query(User).filter(User.email == user.email, User.password == user.password).first()
+    if not db_user:
+        raise HTTPException(status_code=401, detail="Invalid email or password")
+    return {"message": "Login successful"}
