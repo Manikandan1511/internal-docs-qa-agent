@@ -4,6 +4,7 @@ from ingestion.document_loader import load_documents
 from vectorstore.chroma_client import store_embeddings
 
 def ingest():
+    print("Starting ingestion process...")
     if len(sys.argv) < 2:
         print("Usage: python run_ingestion.py <path-to-documents>")
         sys.exit(1)
